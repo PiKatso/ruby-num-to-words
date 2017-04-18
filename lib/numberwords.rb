@@ -28,22 +28,40 @@ class Numberwords
       "60" => 'sixty',
       "70" => 'seventy',
       "80" => 'eighty',
-      "90" => 'ninety'
+      "90" => 'ninety',
+      "100" => 'hundred',
+      "1000" => 'thousand',
+      "1000000" => 'million'
     }
+    places = ['hundred', 'thousand', 'million', 'billion', 'trillion']
     string = ''
-    places = ['hundred', 'thousand', 'million']
-    if (num < 20)
-      string = numbers[num.to_s]
-    else
-      ones, tens, *rest = num.to_s.split('').reverse
-      if (tens == "0")
-        string.prepend(numbers[ones] + ' ')
-      elsif (tens == "1")
-        string.prepend(numbers[tens + ones] + ' ')
+
+    #get number in chunks
+    #for each chunk
+    num.to_s.reverse.scan(/.{1,3}/).each_with_index() do |chunk, idx|
+      new_chunk = ''
+      ones, tens, hundreds = chunk.split('')
+      if (chunk < "20")
+        new_chunk = numbers[num.to_s]
       else
-        string.prepend(numbers[ones] + ' ')
-        string.prepend(numbers[tens + "0"] + ' ')
+        if (tens == "0")
+          new_chunk.prepend(numbers[ones] + ' ')
+        elsif (tens == "1")
+          new_chunk.prepend(numbers[tens + ones] + ' ')
+        else
+          new_chunk.prepend(numbers[ones] + ' ')
+          if tens != 0 && tens != nil
+            new_chunk.prepend(numbers[tens + "0"] + ' ')
+          end
+          if hundreds != 0 && hundreds != nil
+            new_chunk.prepend(numbers[hundreds] + ' hundred ')
+          end
+        end
       end
+      if idx > 0
+        new_chunk << places[idx] + ' '
+      end
+      string.prepend(new_chunk)
     end
     string.strip
   end

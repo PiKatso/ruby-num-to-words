@@ -17,6 +17,7 @@ describe('Numberwords#translate') do
   end
 
   it('takes a 3+ digit number and returns the english words for the number') do
-    expect(@num.translate(5555)).to(eq('five thousand five hundred fifty five'))
+    expect(@num.translate(4567)).to(eq('four thousand five hundred sixty seven'))
+    binding.pry
   end
 end
