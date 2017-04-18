@@ -29,9 +29,6 @@ class Numberwords
       "70" => 'seventy',
       "80" => 'eighty',
       "90" => 'ninety',
-      "100" => 'hundred',
-      "1000" => 'thousand',
-      "1000000" => 'million'
     }
     places = ['hundred', 'thousand', 'million', 'billion', 'trillion']
     string = ''
@@ -49,20 +46,23 @@ class Numberwords
         elsif (tens == "1")
           new_chunk.prepend(numbers[tens + ones] + ' ')
         else
-          new_chunk.prepend(numbers[ones] + ' ')
-          if tens != 0 && tens != nil
+          if ones != "0"
+            new_chunk.prepend(numbers[ones] + ' ')
+          end
+          if tens != "0" && tens != nil
             new_chunk.prepend(numbers[tens + "0"] + ' ')
           end
-          if hundreds != 0 && hundreds != nil
+          if hundreds != "0" && hundreds != nil
             new_chunk.prepend(numbers[hundreds] + ' hundred ')
+          end
+          if idx > 0 && chunk != "000"
+            new_chunk << places[idx] + ' '
           end
         end
       end
-      if idx > 0
-        new_chunk << places[idx] + ' '
-      end
-      string.prepend(new_chunk)
+      string.prepend(new_chunk) unless new_chunk.nil?
     end
+    # end
     string.strip
   end
 end

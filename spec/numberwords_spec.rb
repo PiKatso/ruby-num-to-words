@@ -18,6 +18,11 @@ describe('Numberwords#translate') do
 
   it('takes a 3+ digit number and returns the english words for the number') do
     expect(@num.translate(4567)).to(eq('four thousand five hundred sixty seven'))
-    binding.pry
+  end
+  it('takes one million one and returns the english words for the number') do
+    expect(@num.translate(1000001)).to(eq('one million one'))
+  end
+  it('takes one million and returns the english words for the number') do
+    expect(@num.translate(1000000)).to(eq('one million'))
   end
 end
